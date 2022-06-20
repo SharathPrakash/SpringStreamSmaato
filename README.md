@@ -3,7 +3,7 @@ A Spring Reactive application which interacts with Stream Server like Amazon Kin
 
 This Microservice project exposes 1 endpoint that accepts id and endpoint query params.
 
-#### dependency
+#### Dependency
 * java 1.8
 * Spring Boot 2.7.0
 * spring-cloud-starter-aws 2.2.6
