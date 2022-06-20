@@ -17,7 +17,7 @@ This Microservice project exposes 1 endpoint that accepts id and endpoint query 
 #### Implementation Bottleneck
 
   1. The requirement was to process 10k requests per second its a clear indication for me to favor webflux and netty
-   over the normal servlet web stack. [reference](https://filia-aleks.medium.com/microservice-performance-battle-spring-mvc-vs-webflux-80d39fd81bf0)
+   over the normal servlet web stack.
   2. AWS Kinesis it's easy to push data to and very scalable. 
 
 #### How it works    
@@ -31,43 +31,46 @@ This Microservice project exposes 1 endpoint that accepts id and endpoint query 
 
     I used apache benchmark to get some figures the results were as follows
     
-    ```
-   Hostname:        localhost
-   Port:            8080
-   
-   Path:          /api/smaato/accept?id=ddsa
-   Length:        2 bytes
-   
-   Concurrency Level:      100
-   Time taken for tests:   2.034 seconds
-   Complete requests:      10000
-   Failed requests:        0
-   Keep-Alive requests:    0
-   Total transferred:      800000 bytes
-   HTML transferred:       20000 bytes
-   Requests per second:    6002.58 [#/sec] (mean)
-   Time per request:       20.126 [ms] (mean)
-   Time per request:       0.206 [ms] (mean, across all concurrent requests)
-   Transfer rate:          422.31 [Kbytes/sec] received
-   
-   Connection Times (ms)
-                 min  mean[+/-sd] median   max
-   Connect:        0    1   8.3      1     352
-   Processing:     2   16  40.7      9     361
-   Waiting:        2   15  37.7      9     363
-   Total:          5   17  40.3     10     365
-   
-   Percentage of the requests served within a certain time (ms)
-     50%     12
-     66%     16
-     75%     17
-     80%     18
-     90%     24
-     95%     30
-     98%    110
-     99%    200
-    100%    416 (longest request)
-   ```
+|     Name      | Details       |
+| ------------- | ------------- |
+|   Hostname    |   localhost   |
+|   Port        |      8080     |
+|   Path        |      /api/smaato/accept?id=test     |
+|   Length      |      2 bytes     |
+| Concurrency Level | 100 |
+| Time taken for tests | 2.034 seconds |
+| Complete requests | 10000 |
+| Failed requests | 0 |
+| Keep-Alive requests | 0 |
+| Total transferred | 804901 bytes |
+| HTML transferred | 29704 bytes |
+| Requests per second | 6002.58 [#/sec] |
+| Time per request | 20.126 [ms] (mean) |
+| Time per request | 0.206 [ms] (mean, across all concurrent requests) |
+| Transfer rate | 422.31 [Kbytes/sec] received |
+
+
+|     Connection Times (MS)     | Details       | Details       | Details       | Details       |Details       |
+| -------------                 | ------------- |-------------  |-------------  |-------------  |------------- |
+|   Connect    |    0   | 1 |  8.3 |      1 |     352 |
+|   Processing  | 2  | 16  | 40.7   |   9  |   361 |
+|   Waiting      | 2  | 15 |  37.7 |      9    | 363 |
+|   Total        |   5   | 17  | 40.3   |  10  |   365 |
+
+
+|     Percentage of the requests      | Certain time (ms)       |
+| -------------                       | ------------- |
+|   50%     |    12     |
+|   66%     |    16     |
+|   75%     |    17     |
+|   80%     |    18     |
+|   90%     |    24     |
+|   95%     |    30     |
+|   98%     |   110     |
+|   99%     |   200     |
+|   100%    |    416 (longest request)     |
+
+ 
     Results are from mine personal system with config `2,4 GHz 16-Core Intel Core i7`, Also created the 
     other webservice which processes the post requests on the same machine.
     
