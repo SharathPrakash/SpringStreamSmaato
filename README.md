@@ -71,7 +71,7 @@ This Microservice project exposes 1 endpoint that accepts id and endpoint query 
 |   100%    |    416 (longest request)     |
 
  
-Results are from mine personal system with config `2,4 GHz 16-Core Intel Core i7`, Also created the 
+Results are from mine personal system with config `2.8 GHz Quad-Core Intel Core i7`, Also created the 
 other webservice which processes the post requests on the same machine.
     
    
