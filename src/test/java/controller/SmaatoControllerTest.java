@@ -40,7 +40,7 @@ public class SmaatoControllerTest {
     void shouldReturnOkWhenIdOnlyPresent() {
 
         webClient.get()
-                .uri("/api/smaato/accept?id=12")
+                .uri("/api/smaato/accept?id=17")
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody().consumeWith(res -> new String(Objects.requireNonNull(res.getResponseBody())).equals("ok"));
@@ -57,7 +57,7 @@ public class SmaatoControllerTest {
         server.start();
 
         webClient.get()
-                .uri("/api/smaato/accept?id=12&endpoint=http://"+server.getHostName())
+                .uri("/api/smaato/accept?id=17&endpoint=http://"+server.getHostName())
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody().consumeWith(res -> new String(Objects.requireNonNull(res.getResponseBody())).equals("ok"));
@@ -75,7 +75,7 @@ public class SmaatoControllerTest {
         server.start();
 
         webClient.get()
-                .uri("/api/smaato/accept?id=12&endpoint=http://"+server.getHostName())
+                .uri("/api/smaato/accept?id=17&endpoint=http://"+server.getHostName())
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody().consumeWith(res -> new String(Objects.requireNonNull(res.getResponseBody())).equals("fail"));
