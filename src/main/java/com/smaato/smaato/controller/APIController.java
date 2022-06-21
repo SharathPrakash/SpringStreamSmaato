@@ -1,7 +1,7 @@
 package com.smaato.smaato.controller;
 
 
-import com.smaato.smaato.model.RequestCountRTO;
+import com.smaato.smaato.model.RequestCount;
 import com.smaato.smaato.service.KinesisService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +70,7 @@ public class APIController {
                         .accept(MediaType.APPLICATION_JSON)
                         .body(
                                 BodyInserters.fromValue(
-                                        new RequestCountRTO(requestsCounter.get())
+                                        new RequestCount(requestsCounter.get())
                                 )
                         )
                         .retrieve()
@@ -86,7 +86,7 @@ public class APIController {
                 .doOnNext(kinesisService::streamData)
                 .doOnError(e-> log.error(e.getMessage()))
                 .subscribe(count -> {
-                    log.info("[{}] distinct ids were processed in the last minute", count);
+                    log.info(" Count of distinct ids which were processed in the last minute :- [{}]", count);
                     initializeIdPublisher();
                     requestsCounter.set(0);
                 });

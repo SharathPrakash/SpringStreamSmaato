@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class RequestCountRTO {
+public class RequestCount {
     private Long requestCounter;
 }

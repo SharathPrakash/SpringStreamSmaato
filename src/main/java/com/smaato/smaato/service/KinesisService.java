@@ -44,23 +44,21 @@ public class KinesisService {
     private void doStreamData(Long requestsCount) {
         AmazonKinesisClientBuilder clientBuilder = AmazonKinesisClientBuilder.standard();
 
-        log.info("Trying to stream data to AmazonKinesis request count {}",requestsCount );
-        clientBuilder.setRegion("eu-central-1");
+        log.info("Started stream data to AmazonKinesis request count :- {}",requestsCount );
+        clientBuilder.setRegion("us-west-2");
         clientBuilder.setCredentials(awsCredentialsProvider);
         clientBuilder.setClientConfiguration(new ClientConfiguration());
-
-        AmazonKinesis kinesisClient = clientBuilder.build();
 
         PutRecordsRequest putRecordsRequest = new PutRecordsRequest();
         putRecordsRequest.setStreamName(streamName);
 
         PutRecordsRequestEntry putRecordsRequestEntry = new PutRecordsRequestEntry();
         putRecordsRequestEntry.setData(ByteBuffer.wrap(String.valueOf(requestsCount).getBytes()));
-        putRecordsRequestEntry.setPartitionKey("partitionKey-1");
+        putRecordsRequestEntry.setPartitionKey("partitionKey-smaato");
 
         putRecordsRequest.setRecords(List.of(putRecordsRequestEntry));
-        PutRecordsResult putRecordsResult = kinesisClient.putRecords(putRecordsRequest);
-        log.info("Put in Kinesis Result {}", putRecordsResult);
+        PutRecordsResult putRecordsResult = clientBuilder.build().putRecords(putRecordsRequest);
+        log.info("Kinesis Expected Result {}", putRecordsResult);
     }
 
 }
