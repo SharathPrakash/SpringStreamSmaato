@@ -22,10 +22,10 @@ public class KinesisService {
 
     private final AWSCredentialsProvider awsCredentialsProvider;
 
-    @Value("${kinesis.stream.name}")
+    @Value("${kinesis.stream.name:Requests-Count}")
     private String streamName;
 
-    @Value("${kinesis.stream.enabled}")
+    @Value("${kinesis.stream.enabled:false}")
     private Boolean streamEnabled;
 
     @Autowired

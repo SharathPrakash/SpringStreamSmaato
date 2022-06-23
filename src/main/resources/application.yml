@@ -1,0 +1,14 @@
+cloud:
+  aws:
+    credentials:
+      aws_access_key_id:
+      aws_secret_access_key:
+    region:
+      static: "us-west-2"
+    stack:
+      auto: false
+
+kinesis:
+  stream:
+    name: "Requests-Count"
+    enabled: "true"
