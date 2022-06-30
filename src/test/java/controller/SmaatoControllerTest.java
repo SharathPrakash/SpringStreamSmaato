@@ -87,7 +87,7 @@ public class SmaatoControllerTest {
 
     @AfterEach
     void shutDown() {
-        apiController.getRequestsCounter().set(0);
+        apiController.getRequestsCounter();
     }
 
 }

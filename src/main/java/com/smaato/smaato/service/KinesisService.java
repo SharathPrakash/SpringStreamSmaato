@@ -2,19 +2,17 @@ package com.smaato.smaato.service;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.services.kinesis.AmazonKinesis;
 import com.amazonaws.services.kinesis.AmazonKinesisClientBuilder;
 import com.amazonaws.services.kinesis.model.PutRecordsRequest;
 import com.amazonaws.services.kinesis.model.PutRecordsRequestEntry;
 import com.amazonaws.services.kinesis.model.PutRecordsResult;
-import com.sun.tools.javac.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -56,7 +54,7 @@ public class KinesisService {
         putRecordsRequestEntry.setData(ByteBuffer.wrap(String.valueOf(requestsCount).getBytes()));
         putRecordsRequestEntry.setPartitionKey("partitionKey-smaato");
 
-        putRecordsRequest.setRecords(List.of(putRecordsRequestEntry));
+        putRecordsRequest.setRecords(Arrays.asList(putRecordsRequestEntry));
         PutRecordsResult putRecordsResult = clientBuilder.build().putRecords(putRecordsRequest);
         log.info("Kinesis Expected Result {}", putRecordsResult);
     }
