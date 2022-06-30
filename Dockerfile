@@ -1,8 +1,8 @@
-FROM 8-jdk-oraclelinux7
+FROM openjdk:8
 MAINTAINER "Sharath Prakash <sharath.prakash1992@gmail.com>"
 WORKDIR /app
 
-COPY ./target/*.jar ./app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+COPY ./target/*.jar ./smaato.jar
+ENTRYPOINT ["java", "-jar", "/app/smaato.jar"]
 
 EXPOSE 8080

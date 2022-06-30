@@ -20,7 +20,6 @@ import reactor.core.publisher.Sinks;
 
 import java.time.Duration;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 @RestController
@@ -31,16 +30,14 @@ public class APIController {
 
     private static final Logger logger = LoggerFactory.getLogger(APIController.class);
 
-    private WebClient client;
-
     private Sinks.Many sink;
-    private final AtomicLong requestsCounter;
+    private Long requestsCounter;
     private final KinesisService kinesisService;
 
     public APIController(KinesisService kinesisService) {
         this.kinesisService = kinesisService;
         initializeIdPublisher();
-        requestsCounter = new AtomicLong(0);
+        requestsCounter = new Long(0);
 
         scheduleRequestCounter();
     }
@@ -55,7 +52,7 @@ public class APIController {
     @GetMapping(path = "/accept")
     public Mono<String> accept(@RequestParam String id, @RequestParam(required = false) String endpoint) {
         sink.emitNext(id, (signalType, emitResult) -> emitResult == Sinks.EmitResult.FAIL_NON_SERIALIZED);
-        requestsCounter.incrementAndGet();
+        requestsCounter += requestsCounter+1L;
         return Optional.ofNullable(endpoint)
                 .map(uri -> WebClient.builder()
                         .baseUrl(uri)
@@ -70,7 +67,7 @@ public class APIController {
                         .accept(MediaType.APPLICATION_JSON)
                         .body(
                                 BodyInserters.fromValue(
-                                        new RequestCount(requestsCounter.get())
+                                        new RequestCount(requestsCounter)
                                 )
                         )
                         .retrieve()
@@ -88,7 +85,7 @@ public class APIController {
                 .subscribe(count -> {
                     log.info(" Count of distinct ids which were processed in the last minute :- [{}]", count);
                     initializeIdPublisher();
-                    requestsCounter.set(0);
+                    requestsCounter = new Long(0);
                 });
     }
 
